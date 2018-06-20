@@ -169,8 +169,8 @@ public class Schedule {
 
 		Task lastTask = null;
 		int endIdx = nodeArray.size() -1;
-		for(int i=0; i< tasks.size(); i++)
-		{
+		for (int i = 0; i < tasks.size(); i++) {
+			// 如果迁移后，满足以上要求的方案有多个，则应选择编号小的服务器上的任务编号升序序列最小。
 			Task task = tasks.get(i);
 			if (lastTask != null && nodeArray.get(0).totalLoads == nodeArray.get(endIdx).totalLoads
 					&& nodeArray.get(0).totalTasks == nodeArray.get(endIdx).totalTasks
@@ -178,9 +178,7 @@ public class Schedule {
 				nodeArray.get(endIdx).delEndTask();
 				nodeArray.get(endIdx).addTask(task);
 				nodeArray.get(0).addTask(lastTask);
-			}
-			else
-			{
+			} else {
 				nodeArray.get(0).addTask(task);
 			}
 			
