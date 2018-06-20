@@ -11,6 +11,7 @@ public class TaskInfo
     private int taskId;
     private int nodeId;
     
+    //构造器
     public TaskInfo(int taskId, int nodeId)
     {
     	this.taskId = taskId;
