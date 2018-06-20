@@ -167,11 +167,25 @@ public class Schedule {
 		}
 		sortNodes(nodeArray);
 
+		Task lastTask = null;
+		int endIdx = nodeArray.size() -1;
 		for(int i=0; i< tasks.size(); i++)
 		{
 			Task task = tasks.get(i);
-			nodeArray.get(0).addTask(task);
+			if (lastTask != null && nodeArray.get(0).totalLoads == nodeArray.get(endIdx).totalLoads
+					&& nodeArray.get(0).totalTasks == nodeArray.get(endIdx).totalTasks
+					&& task.consumption == lastTask.consumption) {
+				nodeArray.get(endIdx).delEndTask();
+				nodeArray.get(endIdx).addTask(task);
+				nodeArray.get(0).addTask(lastTask);
+			}
+			else
+			{
+				nodeArray.get(0).addTask(task);
+			}
+			
 			sortNodes(nodeArray);
+			lastTask = task;
 		}
 		
 		//如果挂起队列中有任务存在，则进行根据上述的任务调度策略，获得最佳迁移方案，进行任务的迁移， 返回调度成功
@@ -322,6 +336,14 @@ class Node {
 		runningTasks.add(t);
 		this.totalLoads += t.consumption;
 		this.totalTasks ++;
+	}
+	
+	public Task delEndTask()
+	{
+		Task endTask = runningTasks.remove(runningTasks.size()-1);
+		this.totalLoads -= endTask.consumption;
+		this.totalTasks --;
+		return endTask;
 	}
 	
 }
