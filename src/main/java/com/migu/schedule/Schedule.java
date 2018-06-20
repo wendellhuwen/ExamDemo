@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 /*
 *类名和方法不能修改
@@ -18,16 +17,14 @@ public class Schedule {
 	private HashMap<String, Task> allTasks = null;
 	private ArrayList<Task> queuingTasks = null;
 	private ArrayList<Task> runningTasks = null;
-	//private ConcurrentHashMap<String, Task> queuingTasks = null;
-	//private ConcurrentHashMap<String, Task> runningTasks = null;
-	private ConcurrentHashMap<String, Node> nodes = null;
+	private HashMap<String, Node> nodes = null;
 	private ArrayList<TaskInfo> plan = null;
 
     public int init() {
     	allTasks = new HashMap<String, Task>();
 		queuingTasks = new ArrayList<Task>(50);
 		runningTasks = new ArrayList<Task>(50);
-		nodes = new ConcurrentHashMap<String, Node>();
+		nodes = new HashMap<String, Node>();
 		plan = null;
 		
 		//初始化成功，返回E001初始化成功。
@@ -235,10 +232,10 @@ public class Schedule {
 
 		});
 		
-		printNodes(nodeArray);
+		// printNodes(nodeArray);
 	}
 	
-	private void printNodes(ArrayList<Node> nodeArray) {
+	protected void printNodes(ArrayList<Node> nodeArray) {
 		System.out.println("--------------------");
 		for (Node node : nodeArray) {
 			String log = "";
@@ -291,7 +288,6 @@ class Task {
 	int id = -1;
 	String taskId = null;
 	int consumption = 0;
-	Node node = null;
 
 	public Task(int taskId, int consumption) {
 		this.id = taskId;
