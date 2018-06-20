@@ -186,6 +186,7 @@ public class Schedule {
 			lastTask = task;
 		}
 		
+		
 		//如果挂起队列中有任务存在，则进行根据上述的任务调度策略，获得最佳迁移方案，进行任务的迁移， 返回调度成功
 		if (this.queuingTasks.size() > 0) {
 			// 如果获得最佳迁移方案, 进行了任务的迁移,返回E013: 任务调度成功;
